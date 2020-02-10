@@ -217,6 +217,7 @@ t.Run("unknown word", func(t *testing.T) {
 
     assertError(t, got, ErrNotFound)
 })
+}
 
 func assertError(t *testing.T, got, want error) {
     t.Helper()
@@ -244,7 +245,7 @@ func TestAdd(t *testing.T) {
         t.Fatal("should find added word:", err)
     }
 
-    if want != got {
+    if got != want {
         t.Errorf("got %q want %q", got, want)
     }
 }
@@ -363,9 +364,22 @@ func TestAdd(t *testing.T) {
         assertDefinition(t, dictionary, word, definition)
     })
 }
+...
+func assertError(t *testing.T, got, want error) {
+	t.Helper()
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
+	}
+	if got == nil {
+		if want == nil {
+			return
+		}
+		t.Fatal("expected to get an error.")
+	}
+}
 ```
 
-For this test, we modified `Add` to return an error, which we are validating against a new error variable, `ErrWordExists`. We also modified the previous test to check for a `nil` error.
+For this test, we modified `Add` to return an error, which we are validating against a new error variable, `ErrWordExists`. We also modified the previous test to check for a `nil` error, as well as the `assertError` function.
 
 ## Try to run test
 
@@ -523,7 +537,7 @@ We added yet another error type for when the word does not exist. We also modifi
 ```
 ./dictionary_test.go:53:16: dictionary.Update(word, "new test") used as value
 ./dictionary_test.go:64:16: dictionary.Update(word, definition) used as value
-./dictionary_test.go:66:23: undefined: ErrWordDoesNotExists
+./dictionary_test.go:66:23: undefined: ErrWordDoesNotExist
 ```
 
 We get 3 errors this time, but we know how to deal with these.

@@ -242,7 +242,7 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 }
 ```
 
-Now when we run the tests you get (or or don't get - see above):
+Now when we run the tests you get (or don't get - see above):
 
 ```sh
 --- FAIL: TestCheckWebsites (0.00s)
@@ -465,7 +465,7 @@ the calls of `wc`, and each send to the result channel, is happening in parallel
 inside its own process, each of the results is being dealt with one at a time as
 we take values out of the result channel with the receive expression.
 
-We have paralellized the part of the code that we wanted to make faster, while
+We have parallelized the part of the code that we wanted to make faster, while
 making sure that the part that cannot happen in parallel still happens linearly.
 And we have communicated across the multiple processes involved by using
 channels.
@@ -517,7 +517,7 @@ have been performed because
 > [Premature optimization is the root of all evil][popt]
 > -- Donald Knuth
 
-[DI]: ../dependency-injection.md#
+[DI]: dependency-injection.md
 [wrf]: http://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast
 [godoc_race_detector]: https://blog.golang.org/race-detector
 [popt]: http://wiki.c2.com/?PrematureOptimization
